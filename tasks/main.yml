@@ -1,2 +1,36 @@
 ---
-# tasks file for syslog
+
+- name: install
+  ansible.builtin.package:
+    name: rsyslog
+    state: present
+
+- name: configure server to include /etc/rsyslog.d/*.conf
+  ansible.builtin.lineinfile:
+    dest: /etc/rsyslog.conf
+    line: '$IncludeConfig /etc/rsyslog.d/*.conf'
+  notify: restart rsyslog-server
+
+- name: create settings directory
+  ansible.builtin.file:
+    path: /etc/rsyslog.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: customize settings for syslog
+  ansible.builtin.template:
+    src: ansible_configured.jinja2
+    dest: /etc/rsyslog.d/ansible_configured.conf
+    owner: root
+    group: root
+    mode: 0660
+  notify: restart rsyslog-server
+
+- name: remove old config entry
+  ansible.builtin.lineinfile:
+    dest: /etc/rsyslog.conf
+    regexp: '@{{ syslog.server }}:{{ syslog.port }}'
+    state: absent
+  notify: restart rsyslog-server
