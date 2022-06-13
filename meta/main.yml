@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: syslog
   author: Marc Urben
   description: Configure Syslog
   company: Thunderbluff
