@@ -1,5 +1,6 @@
 galaxy_info:
   role_name: syslog
+  namespace: oxivanisher
   author: Marc Urben
   description: Configure Syslog
   company: Thunderbluff
