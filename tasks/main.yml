@@ -1,36 +1,35 @@
 ---
-
-- name: install
+- name: Install
   ansible.builtin.package:
     name: rsyslog
     state: present
 
-- name: configure server to include /etc/rsyslog.d/*.conf
+- name: Configure server to include /etc/rsyslog.d/*.conf
   ansible.builtin.lineinfile:
     dest: /etc/rsyslog.conf
-    line: '$IncludeConfig /etc/rsyslog.d/*.conf'
-  notify: restart rsyslog-server
+    line: "$IncludeConfig /etc/rsyslog.d/*.conf"
+  notify: Restart rsyslog-server
 
-- name: create settings directory
+- name: Create settings directory
   ansible.builtin.file:
     path: /etc/rsyslog.d
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
-- name: customize settings for syslog
+- name: Customize settings for syslog
   ansible.builtin.template:
     src: ansible_configured.jinja2
     dest: /etc/rsyslog.d/ansible_configured.conf
     owner: root
     group: root
-    mode: 0660
-  notify: restart rsyslog-server
+    mode: "0660"
+  notify: Restart rsyslog-server
 
-- name: remove old config entry
+- name: Remove old config entry
   ansible.builtin.lineinfile:
     dest: /etc/rsyslog.conf
-    regexp: '@{{ syslog.server }}:{{ syslog.port }}'
+    regexp: "@{{ syslog.server }}:{{ syslog.port }}"
     state: absent
-  notify: restart rsyslog-server
+  notify: Restart rsyslog-server
