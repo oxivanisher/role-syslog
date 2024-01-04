@@ -3,7 +3,7 @@
 $PreserveFQDN on
 
 auth.*                                  @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
-auth.*                                  @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
+*.=crit                                 @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
 *.err                                   @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
 kern.warn                               @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
 
