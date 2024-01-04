@@ -30,6 +30,6 @@
 - name: Remove old config entry
   ansible.builtin.lineinfile:
     dest: /etc/rsyslog.conf
-    regexp: "@{{ syslog.server }}:{{ syslog.port }}"
+    regexp: "@{{ syslog_server_address }}:{{ syslog_server_port }}"
     state: absent
   notify: Restart rsyslog-server

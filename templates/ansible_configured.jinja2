@@ -1,11 +1,12 @@
+# {{ ansible_managed }}
 # send messages with FQDN
 $PreserveFQDN on
 
-auth.*                                  @{{ syslog.server }}:{{ syslog.port }};RSYSLOG_SyslogProtocol23Format
-*.=crit                                 @{{ syslog.server }}:{{ syslog.port }};RSYSLOG_SyslogProtocol23Format
-*.err                                   @{{ syslog.server }}:{{ syslog.port }};RSYSLOG_SyslogProtocol23Format
-kern.warn                               @{{ syslog.server }}:{{ syslog.port }};RSYSLOG_SyslogProtocol23Format
+auth.* @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
+*.=crit @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
+*.err @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
+kern.warn @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
 
 # fail2ban
-:programname, startswith, "fail2ban"    -/var/log/fail2ban.log
-:programname, startswith, "fail2ban"    @{{ syslog.server }}:{{ syslog.port }};RSYSLOG_SyslogProtocol23Format
+:programname, startswith, "fail2ban" -/var/log/fail2ban.log
+:programname, startswith, "fail2ban" @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format

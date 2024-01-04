@@ -1,2 +1,4 @@
 ---
 # defaults file for syslog
+syslog_server_address:
+syslog_server_port: 514
