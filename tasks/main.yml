@@ -3,12 +3,16 @@
   ansible.builtin.package:
     name: rsyslog
     state: present
+  become: true
+  become_user: root
 
 - name: Configure server to include /etc/rsyslog.d/*.conf
   ansible.builtin.lineinfile:
     dest: /etc/rsyslog.conf
     line: "$IncludeConfig /etc/rsyslog.d/*.conf"
   notify: Restart rsyslog-server
+  become: true
+  become_user: root
 
 - name: Create settings directory
   ansible.builtin.file:
@@ -17,6 +21,8 @@
     owner: root
     group: root
     mode: "0755"
+  become: true
+  become_user: root
 
 - name: Customize settings for syslog
   ansible.builtin.template:
@@ -26,6 +32,8 @@
     group: root
     mode: "0660"
   notify: Restart rsyslog-server
+  become: true
+  become_user: root
 
 - name: Remove old config entry
   ansible.builtin.lineinfile:
@@ -33,3 +41,5 @@
     regexp: "@{{ syslog_server_address }}:{{ syslog_server_port }}"
     state: absent
   notify: Restart rsyslog-server
+  become: true
+  become_user: root

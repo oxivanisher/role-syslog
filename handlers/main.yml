@@ -3,3 +3,5 @@
   ansible.builtin.service:
     name: "rsyslog"
     state: restarted
+  become: true
+  become_user: root
