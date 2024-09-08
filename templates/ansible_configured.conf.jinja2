@@ -1,6 +1,4 @@
 # {{ ansible_managed }}
-# send messages with FQDN
-$PreserveFQDN on
 
 auth,authpriv.*                         @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format
 *.=crit                                 @{{ syslog_server_address }}:{{ syslog_server_port }};RSYSLOG_SyslogProtocol23Format

@@ -14,7 +14,7 @@
   become: true
   become_user: root
 
-- name: Create settings directory
+- name: Ensure settings directory
   ansible.builtin.file:
     path: /etc/rsyslog.d
     state: directory
@@ -24,9 +24,20 @@
   become: true
   become_user: root
 
+- name: Customize FQDN settings for syslog
+  ansible.builtin.template:
+    src: 00-use-fqdn.conf.jinja2
+    dest: /etc/rsyslog.d/00-use-fqdn.conf
+    owner: root
+    group: root
+    mode: "0660"
+  notify: Restart rsyslog-server
+  become: true
+  become_user: root
+
 - name: Customize settings for syslog
   ansible.builtin.template:
-    src: ansible_configured.jinja2
+    src: ansible_configured.conf.jinja2
     dest: /etc/rsyslog.d/ansible_configured.conf
     owner: root
     group: root
