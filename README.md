@@ -1,5 +1,6 @@
 syslog
 ======
+[![Ansible Lint](https://github.com/oxivanisher/role-syslog/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/oxivanisher/role-syslog/actions/workflows/ansible-lint.yml)
 
 Configure rsyslog to send all messages to a server.
 
