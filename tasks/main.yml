@@ -10,6 +10,7 @@
   ansible.builtin.lineinfile:
     dest: /etc/rsyslog.conf
     line: "$IncludeConfig /etc/rsyslog.d/*.conf"
+  ignore_errors: "{{ ansible_check_mode }}"
   notify: Restart rsyslog-server
   become: true
   become_user: root
@@ -51,6 +52,7 @@
     dest: /etc/rsyslog.conf
     regexp: "@{{ syslog_server_address }}:{{ syslog_server_port }}"
     state: absent
+  ignore_errors: "{{ ansible_check_mode }}"
   notify: Restart rsyslog-server
   become: true
   become_user: root
