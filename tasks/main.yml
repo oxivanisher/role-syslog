@@ -4,7 +4,6 @@
     name: rsyslog
     state: present
   become: true
-  become_user: root
 
 - name: Configure server to include /etc/rsyslog.d/*.conf
   ansible.builtin.lineinfile:
@@ -13,7 +12,6 @@
   ignore_errors: "{{ ansible_check_mode }}"
   notify: Restart rsyslog-server
   become: true
-  become_user: root
 
 - name: Ensure settings directory
   ansible.builtin.file:
@@ -23,7 +21,6 @@
     group: root
     mode: "0755"
   become: true
-  become_user: root
 
 - name: Customize FQDN settings for syslog
   ansible.builtin.template:
@@ -34,7 +31,6 @@
     mode: "0660"
   notify: Restart rsyslog-server
   become: true
-  become_user: root
 
 - name: Customize settings for syslog
   ansible.builtin.template:
@@ -45,7 +41,6 @@
     mode: "0660"
   notify: Restart rsyslog-server
   become: true
-  become_user: root
 
 - name: Remove old config entry
   ansible.builtin.lineinfile:
@@ -55,4 +50,3 @@
   ignore_errors: "{{ ansible_check_mode }}"
   notify: Restart rsyslog-server
   become: true
-  become_user: root
